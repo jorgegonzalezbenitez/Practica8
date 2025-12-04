@@ -1,5 +1,6 @@
 package aplication;
 
+import architecture.AirRoute;
 import architecture.Datalake;
 import architecture.Storage;
 
@@ -7,16 +8,16 @@ public class Main {
 
     public static void main(String[] args) {
 
-        String storageMode = System.getenv().getOrDefault("STORAGE_MODE", "S3");
+        String storageMode = System.getenv().getOrDefault("STORAGE_MODE", "LOCAL");
 
         Storage storage = StorageFactory.createStorage(storageMode);
-
         Datalake datalake = new Datalake(storage);
 
         Runnable generatorTask = () -> {
             while (true) {
                 try {
-                    datalake.saveTransaction(architecture.Transaction.generateRandomTransaction());
+                    AirRoute route = AirRoute.generateRandomVuelo();
+                    datalake.saveAirRoute(route);
                     Thread.sleep(30_000);
                 } catch (InterruptedException e) {
                     System.out.println("Hilo interrumpido");
@@ -26,6 +27,6 @@ public class Main {
         };
 
         new Thread(generatorTask).start();
-        System.out.println("🚀 Servicio iniciado en modo: " + storageMode);
+        System.out.println("✈️ Servicio de AirRoutes iniciado en modo: " + storageMode);
     }
 }

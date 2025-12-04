@@ -1,6 +1,5 @@
 package architecture;
 
-
 public class Datalake {
 
     private final Storage storage;
@@ -9,7 +8,7 @@ public class Datalake {
         this.storage = storage;
     }
 
-    public void saveTransaction(Transaction tx) {
-        storage.saveTransaction(tx);
+    public void saveAirRoute(AirRoute route) {
+        storage.saveAirRoute(route);
     }
 }

@@ -14,8 +14,9 @@ public class StorageFactory {
                     .region(Region.US_EAST_1)
                     .build();
 
-            String bucketName = "datalake-" + java.time.LocalDate.now()
-                    .format(java.time.format.DateTimeFormatter.BASIC_ISO_DATE);
+            String bucketName = "datalake-" +
+                    java.time.LocalDate.now()
+                            .format(java.time.format.DateTimeFormatter.BASIC_ISO_DATE);
 
             return new S3WebService(s3Client, bucketName);
         } else {
